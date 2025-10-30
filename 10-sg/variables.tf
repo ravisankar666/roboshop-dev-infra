@@ -16,7 +16,14 @@ variable "sg_names" {
         #backend
         "catalogue","user","cart","shipping","payment",
         #forntend
-        "fronend"
+        "fronend",
+        #bastion
+        "bastion",
+        #frontend loadbalancers
+        "frontend-lb",
+        # Backend ALB
+        "backend-alb"
+
     ]
 
     
