@@ -3,7 +3,7 @@ resource "aws_lb" "backend-alb" {
   internal           = true
   load_balancer_type = "application"
   security_groups    = [local.backend_alb_sg_id]
-  subnets            = local.public_subent_ids
+  subnets            = local.private_subent_ids
 
   enable_deletion_protection = true # prevent accidental deletion from UI
 
