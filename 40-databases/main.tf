@@ -33,7 +33,7 @@ resource "terraform_data" "mongodb" {
       password = "DevOps321"
       host = aws.instance.mongodb.private_ip
     }
-    # terraform copies this file to mongodb server
+    # terraform copies this file to mongodb server                      provisioner excutes either creatation-time or destroy-time
     provisioner "file" {
         source = "bootstrap.sh"
         destination = "/tmp/bootstrap.sh"
