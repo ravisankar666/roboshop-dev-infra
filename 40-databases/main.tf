@@ -6,11 +6,11 @@
     tags = merge(
         local.common_tags,
         {
-            Name = "${local.common_name_suffix}-database"
+            Name = "${local.common_name_suffix}-mongodb" #roboshop-dev-mongodb
         }
     )
 
-    provisioner "" {
+    provisioner "remote-exec" {
       
     }
 
@@ -20,3 +20,31 @@
 
 
 }
+
+resource "terraform_data" "mongodb" {
+  triggers_replace = [
+    aws_instance.mongodb.id,
+    aws_instance.database.id
+  ]
+
+  connection {                   #connection block , try to connect ec2-instance
+      type = "ssh"
+      user = "ec2-user"
+      password = "DevOps321"
+      host = aws.instance.mongodb.private_ip
+    }
+    # terraform copies this file to mongodb server
+    provisioner "file" {
+        source = "bootstrap.sh"
+        destination = "/tmp/bootstrap.sh"
+      
+    }
+
+  provisioner "remoto-exec" {
+    inline = [
+        "chmod +x /tmp/bootstrap.sh",
+        "sudo sh chmod +x /tmp/bootstrap.sh"
+    ]
+  }
+}
+
