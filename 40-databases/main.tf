@@ -133,6 +133,7 @@ resource "aws_instance" "mysql" {
     instance_type = "t3.micro"
     vpc_security_group_ids = [local.mysql_sg_id]
     subnet_id = local.database_subent_ids
+    iam_instance_profile = aws_iam_instance_profile.mysql.name
     tags = merge(
         local.common_tags,
         {
@@ -142,6 +143,12 @@ resource "aws_instance" "mysql" {
 
    
 }
+
+resource "aws_iam_instance_profile" "mysql" {
+  name = "mysql"
+  role = "EC2SSMParameter"
+}
+
 
 resource "terraform_data" "mysql" {
   triggers_replace = [
@@ -171,45 +178,38 @@ resource "terraform_data" "mysql" {
 }
 
 
-#catalogue
-resource "aws_instance" "catalogue" {
-    ami = local.ami_id
-    instance_type = "t3.micro"
-    vpc_security_group_ids = [local.catalogue_sg_id]
-    subnet_id = local.database_subent_ids
-    tags = merge(
-        local.common_tags,
-        {
-            Name = "${local.common_name_suffix}-catalogue" #roboshop-dev-catalogue
-        }
-    )
 
-   
+
+resource "aws_route53_record" "mongodb" {
+  zone_id = var.zone-id
+  name    = "mongodb-${var.environment}.${var.domain_name}" #monodb-dev.daws86.fun
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.mongodb.private_ip]
+  allow_overwrite = true
 }
 
-resource "terraform_data" "catalogue" {
-  triggers_replace = [
-    aws_instance.catalogue.id,
-    aws_instance.database.id
-  ]
-
-  connection {                   #connection block , try to connect ec2-instance
-      type = "ssh"
-      user = "ec2-user"
-      password = "DevOps321"
-      host = aws.instance.catalogue.private_ip
-    }
-    # terraform copies this file to mysql server                      provisioner excutes either creatation-time or destroy-time
-    provisioner "file" {
-        source = "bootstrap.sh"
-        destination = "/tmp/bootstrap.sh "
-      
-    }
-
-  provisioner "remoto-exec" {
-    inline = [
-        "chmod +x /tmp/bootstrap.sh",
-        "sudo sh  /tmp/bootstrap.sh catalogue"
-    ]
-  }
+resource "aws_route53_record" "redis" {
+  zone_id = var.zone-id
+  name    = "redis-${var.environment}.${var.domain_name}" #redis-dev.daws86.fun
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.redis.private_ip]
+  allow_overwrite = true
+}
+resource "aws_route53_record" "mysql" {
+  zone_id = var.zone-id
+  name    = "mysql-${var.environment}.${var.domain_name}" #mysql-dev.daws86.fun
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.mysql.private_ip]
+  allow_overwrite = true
+}
+resource "aws_route53_record" "rabbitmq" {
+  zone_id = var.zone-id
+  name    = "rabbitmq-${var.environment}.${var.domain_name}" #rabbitmq-dev.daws86.fun
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.rabbitmq.private_ip]
+  allow_overwrite = true
 }

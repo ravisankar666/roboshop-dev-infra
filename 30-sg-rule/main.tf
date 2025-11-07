@@ -43,7 +43,7 @@ resource "aws_security_group_rule" "rabbitma_bastion " {
   protocol          = "tcp"
   to_port           = 22
 }
-
+#Created as part of ticket 1234GDF
 resource "aws_security_group_rule" "mysql_bastion " {
   type              = "ingress"
   security_group_id = local.mysql_sg_id 
