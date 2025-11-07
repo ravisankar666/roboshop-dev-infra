@@ -1,6 +1,6 @@
 locals {
   common_name_suffix = "${var.project_name}-${var.environment}" #roboshop-dev
-  catalogue_sg_id = data.aws_ssm_parameter.catalogue_sg_id
+  catalogue_sg_id = data.aws_ssm_parameter.catalogue_sg_id.value
  
 
   private_subent_id = split("," , data.aws_ssm_parameter.private_subnet_id.value )[0]
