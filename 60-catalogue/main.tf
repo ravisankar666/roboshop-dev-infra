@@ -54,5 +54,24 @@ resource "aws_ami_from_instance" "catalogue" {
   name = "${local.common_name_suffix}-catalogue-ami"
   source_instance_id = aws_instance.catalogue.id
   depends_on = [ aws_ec2_instance_state.catalogue ]
-  
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${local.common_name_suffix}-catalogue"  #roboshop-dev-catalogue
+    }
+  )
 }
+
+#create lunch template in aws console.check "name" {
+  
+
+# create launch template
+# template name ; roboshop-dev-catalogue
+# template version ; optional
+# in myaml have to select roboshop-dev-catalogue-ami
+# instance type - t3.micro
+# network-setting
+# subnet ; roboshop-dev-priavte-us-east-1a
+# zone:us-east-1a
+# sg catalogue
+# click on create launch template.

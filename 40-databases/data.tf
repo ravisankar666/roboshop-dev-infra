@@ -1,9 +1,9 @@
 data "aws_ssm_parameter" "vpc_id" {
-  name = "/${var.project_name}/${var.environment}/database"
+  name = "/${var.project_name}/${var.environment}/vpc_id"
 }
 
 data "aws_ami" "devsecops" {
-    owners   = ["517542309828"]
+    owners   = ["973714476881"]
     most_recent   = true
 
     filter {
@@ -27,8 +27,8 @@ data "aws_ssm_parameter" "mongodb_sg_id" {
 
 }
 
-data "aws_ssm_parameter" "database_subnet_ids" {
-  name = "/${var.project_name}/${var.environment}/database_subnet_ids"
+data "aws_ssm_parameter" "database_subnet_id" {
+  name = "/${var.project_name}/${var.environment}/database_subnet_id"
 
 }
 data "aws_ssm_parameter" "redis_sg_id" {

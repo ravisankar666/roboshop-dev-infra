@@ -22,7 +22,7 @@ variable "sg_names" {
         #frontend loadbalancers
         "frontend-lb",
         # Backend ALB
-        "backend-alb"
+        "backend_alb"
 
     ]
 

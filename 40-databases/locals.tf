@@ -8,7 +8,7 @@ locals {
 
 
 
-  database_subent_ids = split("," , data.aws_ssm_parameter.database_subnet_ids.value )[0]
+  database_subnet_ids = split("," , data.aws_ssm_parameter.database_subnet_id.value )[0]
   ami_id = data.aws_ami.devsecops.id
   common_tags = {
     Project = var.project_name

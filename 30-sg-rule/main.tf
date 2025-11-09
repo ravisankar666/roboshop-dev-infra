@@ -16,18 +16,18 @@ resource "aws_security_group_rule" "bastion_laptop" {
   to_port           = 22
 }
 
-resource "aws_security_group_rule" "mongodb_bastion " {
+resource "aws_security_group_rule" "mongodb_bastion" {
   type              = "ingress"
-  security_group_id = local.mongodb_sg_id 
+  security_group_id = local.mongodb_sg_id
   source_security_group_id = local.bastion_sg_id
   from_port         = 22
   protocol          = "tcp"
   to_port           = 22
 }
 
-resource "aws_security_group_rule" "redis_bastion " {
+resource "aws_security_group_rule" "redis_bastion" {
   type              = "ingress"
-  security_group_id = local.mongodb_sg_id 
+  security_group_id = local.redis_sg_id
   source_security_group_id = local.bastion_sg_id
   from_port         = 22
   protocol          = "tcp"
@@ -35,7 +35,7 @@ resource "aws_security_group_rule" "redis_bastion " {
 }
 
 
-resource "aws_security_group_rule" "rabbitma_bastion " {
+resource "aws_security_group_rule" "rabbitma_bastion" {
   type              = "ingress"
   security_group_id = local.mongodb_sg_id 
   source_security_group_id = local.bastion_sg_id
@@ -44,7 +44,7 @@ resource "aws_security_group_rule" "rabbitma_bastion " {
   to_port           = 22
 }
 #Created as part of ticket 1234GDF
-resource "aws_security_group_rule" "mysql_bastion " {
+resource "aws_security_group_rule" "mysql_bastion" {
   type              = "ingress"
   security_group_id = local.mysql_sg_id 
   source_security_group_id = local.bastion_sg_id
@@ -53,7 +53,7 @@ resource "aws_security_group_rule" "mysql_bastion " {
   to_port           = 22
 }
 
-resource "aws_security_group_rule" "catalogue_bastion " {
+resource "aws_security_group_rule" "catalogue_bastion" {
   type              = "ingress"
   security_group_id = local.catalogue_sg_id 
   source_security_group_id = local.bastion_sg_id
@@ -66,11 +66,20 @@ resource "aws_security_group_rule" "catalogue_bastion " {
 #mongodb accepting from catalogue
 resource "aws_security_group_rule" "mongodb_catalogue" {
   type              = "ingress"
-  security_group_id = local.mongodb_sg_id 
+  security_group_id = local.mongodb_sg_id
   source_security_group_id = local.catalogue_sg_id
   from_port         = 27017
   protocol          = "tcp"
-  to_port           = 22
+  to_port           = 27017
+}
+
+resource "aws_security_group_rule" "catalogue_backend_alb" {
+  type              = "ingress"
+  security_group_id = local.catalogue_sg_id
+  source_security_group_id = local.backend_alb_sg_id
+  from_port         = 8080
+  protocol          = "tcp"
+  to_port           = 8080
 }
 
 
