@@ -111,6 +111,8 @@ resource "aws_launch_template" "catalogue" {
   instance_type = "t3.micro"
 
   vpc_security_group_ids = [local.catalogue_sg_id]
+   # when we run terraform apply again , anew version will be created with new ami id
+  update_default_version = true
   #tags attached to volume created by instances
   tag_specifications {
     resource_type = "volume"
@@ -134,6 +136,7 @@ resource "aws_launch_template" "catalogue" {
 
 
 #auto scaling
+# it will refresh with new ami_id (version)
 
 resource "aws_autoscaling_group" "catalogue" {
   name                      = "${local.common_name_suffix}-catalogue" #roboshop-dev-catalogue
@@ -177,7 +180,7 @@ resource "aws_autoscaling_group" "catalogue" {
 
 
 # auto scaling policy's
-resource "aws_autoscaling_policy" "example" {
+resource "aws_autoscaling_policy" "catalogue" {
   autoscaling_group_name = aws_autoscaling_group.catalogue.name
   name                   = "${local.common_name_suffix}-catalogue"
   policy_type            = "TargetTrackingScaling"

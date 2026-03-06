@@ -12,3 +12,4 @@ data "aws_ssm_parameter" "backend_ald_sg_id" {
 data "aws_ssm_parameter" "private_subnet_ids" {
     name = "/${var.project_name}/${var.environment}/private_subnet_ids"
 }
+

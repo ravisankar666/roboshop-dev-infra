@@ -8,7 +8,7 @@ dnf install ansible -y
 # cd ansible-playbook
 # ansible-playbook -i inventory main.yaml
 
-REPO_URL=https://github.com/daws-86s/ansible-roboshop-roles-tf.git
+REPO_URL=https://github.com/ravisankar666/-ansible-roboshop-roles.tf.git
 REPO_DIR=/opt/roboshop/ansible
 ANSIBLE_DIR=ansible-roboshop-roles-tf
 
@@ -19,6 +19,7 @@ touch ansible.log
 cd $REPO_DIR
 
 # check if ansible repo is already cloned or not
+
 
 if [ -d $ANSIBLE_DIR ]; then
 
