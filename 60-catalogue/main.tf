@@ -151,6 +151,16 @@ resource "aws_autoscaling_group" "catalogue" {
     version = aws_ami_from_instance.catalogue.latest_version
 
   }
+
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50 # atleast 50% of the instances should be up and running 
+    }
+    triggers = ["launch_template "]
+  }
+
+
   vpc_zone_identifier       = local.private_subent_ids
   target_group_arns = [aws_lb_target_group.catalogue.arn]
  
@@ -220,3 +230,4 @@ resource "terraform_data" "catalogue_local" {
     command = "aws ec2 terminate-instances --instance-ids ${aws_instance.catalogue.id}"
   }
 }
+
