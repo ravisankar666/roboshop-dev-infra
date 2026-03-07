@@ -1,10 +1,10 @@
 variable "project_name" {
-  default = roboshop
+  default = "roboshop"
 }
 variable "environment" {
-    default = dev
+    default = "dev"
   
 }
 variable "domain_name" {
-  default = daws86.fun
+  default = "daws86.fun"
 }
