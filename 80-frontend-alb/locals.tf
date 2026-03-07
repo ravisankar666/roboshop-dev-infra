@@ -10,3 +10,4 @@ locals {
     aws_certificate_arn = data.aws_ssm_parameter.frontend_alb_certificate_arn.value
     vpc_id = data.aws_ssm_parameter.vpc_id.value
 }
+
