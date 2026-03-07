@@ -76,6 +76,7 @@ resource "aws_ami_from_instance" "catalogue" {
 # sg catalogue
 # click on create launch template.
 
+
 #creatation of target group
 resource "aws_lb_target_group" "catalogue" {
   name     = "${local.common_name_suffix}-catalogue" 
@@ -95,6 +96,7 @@ resource "aws_lb_target_group" "catalogue" {
 
   }
 }
+
 
 #launch template
 
