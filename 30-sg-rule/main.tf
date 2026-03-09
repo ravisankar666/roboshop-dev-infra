@@ -307,8 +307,48 @@ resource "aws_security_group_rule" "frontend_frontend__alb" {
 
 
 
+######openvpns_sg_rules ######
+
+resource "aws_security_group_rule" "open-vpn_public" {
+  type              = "ingress"
+  
+  security_group_id = local.open-vpn_sg_id 
+  cidr_blocks = ["0.0.0.0/0"]
+  from_port         = 22
+  protocol          = "tcp"
+  to_port           = 22
+}
+
+resource "aws_security_group_rule" "open-vpn_943" {
+  type              = "ingress"
+  
+  security_group_id = local.open-vpn_sg_id 
+  cidr_blocks = ["0.0.0.0/0"]
+  from_port         = 943
+  protocol          = "tcp"
+  to_port           = 943
+}
+
+resource "aws_security_group_rule" "open-vpn_443" {
+  type              = "ingress"
+  
+  security_group_id = local.open-vpn_sg_id 
+  cidr_blocks = ["0.0.0.0/0"]
+  from_port         = 443
+  protocol          = "tcp"
+  to_port           = 443
+}
 
 
+resource "aws_security_group_rule" "open-vpn_1194" {
+  type              = "ingress"
+  
+  security_group_id = local.open-vpn_sg_id 
+  cidr_blocks = ["0.0.0.0/0"]
+  from_port         = 1194
+  protocol          = "tcp"
+  to_port           = 1194
+}
 
 
 

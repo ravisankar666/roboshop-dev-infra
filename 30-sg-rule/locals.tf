@@ -12,4 +12,5 @@ locals {
   payment_sg_id = data.aws_ssm_parameter.payment_sg_id.value
   frontend_alb_sg_id = data.aws_ssm_parameter.frontend_alb_sg_id.value
   frontend_sg_id = data.aws_ssm_parameter.frontend_sg_id.value
+  open-vpn_sg_id = data.aws_ssm_parameter.open-vpn_sg_id.value
 }
